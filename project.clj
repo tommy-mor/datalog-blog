@@ -7,5 +7,6 @@
                  [com.xtdb/xtdb-core "1.22.0"]
                  [com.xtdb/xtdb-rocksdb "1.22.0"]
                  [hato "0.8.2"]
-                 [cheshire "5.11.0"]]
+                 [cheshire "5.11.0"]
+                 [io.github.nextjournal/clerk "0.10.562"]]
   :repl-options {:init-ns jsonapi-xtdb.core})

@@ -2,7 +2,7 @@
   get code examples working with challonge
     {try to get java.net.Authenticator working, if not just use hc/request helper function
       with things}
-  then add commentary/marginalia
+  then add commentary/marginalia, use clerk for article
 
 :article/outline
   what is json-api
