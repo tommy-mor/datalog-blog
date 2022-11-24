@@ -200,7 +200,7 @@
 
 ;; Enter [xtdb](https://xtdb.com/), the graph database from JUXT. We are receiving a normalized graph of resources from the json-api endpoint, and are computing queries on it. Why not have xtdb run the queries for us.
 
-;; Lets start an xtdb node with an empty configuration map: Instead of persisting the data in one of their [pluggable backends](https://docs.xtdb.com/administration/configuring/#_storage, we store it in plain java datstructures.
+;; Lets start an xtdb node with an empty configuration map: Instead of persisting the data in one of their [pluggable backends](https://docs.xtdb.com/administration/configuring/#_storage), we store it in plain java datstructures.
 
 ^{::clerk/visibility {:code :show :result :hide}}
 (def node (xt/start-node {}))
