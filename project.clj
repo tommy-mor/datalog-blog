@@ -8,5 +8,11 @@
                  [com.xtdb/xtdb-rocksdb "1.22.0"]
                  [hato "0.8.2"]
                  [cheshire "5.11.0"]
-                 [io.github.nextjournal/clerk "0.10.562"]]
-  :repl-options {:init-ns jsonapi-xtdb.core})
+                 [nextjournal/clerk "6c0a44a5634afdec511469d7220158b2957bf488"]]
+  :repl-options {:init-ns jsonapi-xtdb.core}
+  :plugins [[reifyhealth/lein-git-down "0.4.1"]]
+  :repositories [["public-github" {:url "git://github.com"}]]
+  
+
+
+  )
