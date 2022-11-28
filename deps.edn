@@ -1,0 +1,9 @@
+{:deps
+ {io.github.nextjournal/clerk {:git/sha "6c0a44a5634afdec511469d7220158b2957bf488"}
+  com.xtdb/xtdb-core {:mvn/version "1.22.1"}}
+
+ 
+ :aliases
+ {:nextjournal/clerk
+  {:exec-fn nextjournal.clerk/build!
+   :exec-args {:index "src/jsonapi_xtdb/core.clj"}}}}

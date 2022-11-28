@@ -1,105 +1,12 @@
 ^{::clerk/visibility {:code :hide :result :hide}}
 (ns jsonapi-xtdb.core
   (:require [xtdb.api :as xt]
-            [hato.client :as hc]
             [clojure.java.io :as io]
-            [cheshire.core :refer [generate-string]]
             [nextjournal.clerk :as clerk]
-            [jsonapi-xtdb.auth :refer [refresh-tokens]]
             [clojure.set]
             [clojure.instant])
   (:import [javax.imageio ImageIO]))
 
-
-^{::clerk/visibility {:code :hide :result :hide}}
-(comment
-  ^{::clerk/visibility {:code :show :result :hide}}
-  (def tokens (refresh-tokens))
-
-
-  (defn api-url [end] (str "https://api.challonge.com/v2/" end))
-
-  (defn request [{:keys [method url body] :as req}]
-    (let [additional-opts {:headers {"Authorization-Type" "v2"}
-                           :oauth-token (:access_token tokens)
-                           :content-type "application/vnd.api+json"
-                           :accept :json
-                           :as :json}]
-      (:body (hc/request (merge additional-opts
-                                req
-                                {:body (if (and body (map? body))
-                                         (generate-string body)
-                                         body)})))))
-
-  ^{::clerk/visibility {:code :hide :result :hide}}
-  (comment (doall (for [tourney (:data (request {:method :get
-                                                 :url (api-url "tournaments.json")}))]
-                    (request {:method :delete
-                              :url (-> tourney :links :self)}))))
-
-  (def list-tournaments-empty (request {:method :get
-                                        :url (api-url "tournaments.json")}))
-  
-
-  (def created-tournament
-    (request {:method :post
-              :url (api-url "tournaments.json")
-              :body {:data {:type "tournaments"
-                            :attributes
-                            {:name "best color"
-                             :tournament_type "single elimination"}}}}))
-
-  (def list-tournaments (request {:method :get
-                                  :url (api-url "tournaments.json")}))
-
-  ;; ok cool. lots of nested data, i like the structure and how it includes related resources in a consistent manner
-  ;; lets make a full tournament to get more data
-
-  (-> list-tournaments
-      :data
-      first
-      :relationships
-      :participants)
-
-  (def participant-url (-> list-tournaments
-                           :data
-                           first
-                           :relationships
-                           :participants
-                           :links
-                           :related))
-  
-
-  (def participants (request {:method :get
-                              :url participant-url}))
-  ;; ok, it really is empty. like the (-> tourney :relationships :participants :meta :count)
-
-  (doseq [color ["red" "green" "blue" "orange" "maroon" "coral" "crimson" "scarlet" "pink"
-                 "rust" "salmon"]]
-    (request {:method :post
-              :url participant-url
-              :body
-              {:data
-               {:type "Participant"
-                :attributes
-                {:name color
-                 :misc (str (java.util.UUID/randomUUID))}}}}))
-
-  (def participants (request {:method :get
-                              :url participant-url}))
-  
-
-  participants
-
-  (def matches (request {:method :get
-                         :url (-> list-tournaments
-                                  :data
-                                  first
-                                  :relationships
-                                  :matches
-                                  :links
-                                  :related)}))
-  (spit "matches.edn" matches))
 
 ^{::clerk/visibility {:code :hide :result :show}}
 (clerk/md "# Datalog for json munging")
