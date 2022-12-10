@@ -1,5 +1,5 @@
 {:deps
- {io.github.nextjournal/clerk {:git/sha "da97d4ac5d6b5eb4f904b8c8a22090a3088fcb4a"}
+ {io.github.nextjournal/clerk {:mvn/version "0.12.707"}
   com.xtdb/xtdb-core {:mvn/version "1.22.1"}}
 
  
