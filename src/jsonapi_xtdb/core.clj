@@ -218,18 +218,6 @@ Each triple in the `:where` clause of the query is defining a rule/restriction i
 ^{::clerk/opts {:auto-expand-results? true}}
 (xtdb-matches->participating-users node)
 
-^{::clerk/opts {:auto-expand-results? true}}
-(xt/q (xt/db node) '{:find [match p1uuid p1name p2uuid p2name]
-                       :where [[match :type "match"]
-                               [match :attributes.state "open"]
-                               [match :relationships.player1.data.id p1]
-                               [match :relationships.player2.data.id p2]
-                               [p1 :attributes.misc p1uuid]
-                               [p1 :attributes.name p1name]
-                               [p2 :attributes.misc p2uuid]
-                               [p2 :attributes.name p2name]]})
-
-
 ;; Now the reverse operation, (find match ids from gameserver uuid), is trivial.
 (defn xtdb-uuid->matches [node uuid]
   "find the challonge match ids that a given player is currently allowed to play in"
